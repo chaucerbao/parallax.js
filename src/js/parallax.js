@@ -9,7 +9,7 @@ var Parallax = (function(window, document) {
   };
 
   /* Add an element to the watch list */
-  var bind = function(elements, speed) {
+  var bind = function(elements, scale) {
     if (!isInitialized) {
       init();
       isInitialized = true;
@@ -19,18 +19,18 @@ var Parallax = (function(window, document) {
     for (var i = 0, length = elements.length; i < length; i++) {
       watchList.push({
         element: elements[i],
-        speed: speed
+        scale: scale
       });
     }
   };
 
   /* Calculate the background position offset for each element in the watch list */
   var render = function() {
-    var element, speed, offset, y;
+    var element, scale, offset, y;
 
     for (var i = 0, length = watchList.length; i < length; i++) {
       element = watchList[i].element;
-      speed = watchList[i].speed;
+      scale = watchList[i].scale;
       offset = window.pageYOffset - element.offsetTop;
 
       if (offset < 0) {
@@ -38,7 +38,7 @@ var Parallax = (function(window, document) {
       } else if (offset > element.offsetHeight) {
         continue;
       } else {
-        y = offset / speed;
+        y = offset * (1 - scale);
       }
 
       element.style.backgroundPosition = '0 ' + y + 'px';
