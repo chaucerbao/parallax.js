@@ -1,7 +1,7 @@
 var Parallax = (function(window, document) {
   'use strict';
 
-  var watch = [],
+  var watchList = [],
     isInitialized = false;
 
   var init = function() {
@@ -9,31 +9,34 @@ var Parallax = (function(window, document) {
   };
 
   /* Add an element to the watch list */
-  var bind = function(element, speed) {
+  var bind = function(elements, speed) {
     if (!isInitialized) {
       init();
       isInitialized = true;
     }
 
-    watch.push({
-      element: element,
-      speed: speed
-    });
+    if (!elements.length) { elements = [elements]; }
+    for (var i = 0, length = elements.length; i < length; i++) {
+      watchList.push({
+        element: elements[i],
+        speed: speed
+      });
+    }
   };
 
-  /* Calculate the background position offset for each element on the watch list */
+  /* Calculate the background position offset for each element in the watch list */
   var render = function() {
     var element, speed, offset, y;
 
-    for (var i = 0, length = watch.length; i < length; i++) {
-      element = watch[i].element;
-      speed = watch[i].speed;
+    for (var i = 0, length = watchList.length; i < length; i++) {
+      element = watchList[i].element;
+      speed = watchList[i].speed;
       offset = window.pageYOffset - element.offsetTop;
 
       if (offset < 0) {
         y = 0;
       } else if (offset > element.offsetHeight) {
-        y = element.offsetHeight / speed;
+        continue;
       } else {
         y = offset / speed;
       }
