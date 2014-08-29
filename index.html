@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parallax.js</title>
+    <style>
+      #site-header, #site-body {
+        margin: 0 auto;
+        width: 960px;
+      }
+      #site-header {
+        background: url(http://placekitten.com/g/960/400) no-repeat;
+        height: 400px;
+      }
+      #site-header h1 {
+        background-color: rgba(0, 0, 0, .5);
+        box-sizing: border-box;
+        color: white;
+        font-size: 350%;
+        line-height: 400px;
+        padding: 0 8%;
+        width: 100%; height: 100%;
+      }
+      #s2 {
+        background: url(http://placekitten.com/g/960/500) no-repeat;
+        color: white;
+        padding: 5%;
+      }
+      #s2 h2 {
+        margin-top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header id="site-header">
+      <h1>Dolor nobis ipsum</h1>
+    </header>
+
+    <main id="site-body">
+      <section id="s1">
+        <h2>Amet sit dolore ex</h2>
+        <p>Consectetur dolor amet maiores ipsa laboriosam recusandae soluta quaerat, optio at, quasi tenetur? Excepturi et earum numquam consequuntur placeat consectetur. Consequuntur perferendis enim quasi ducimus impedit facilis nobis? Fugiat expedita.</p>
+        <p>Consectetur sapiente minima fuga obcaecati sapiente! Nesciunt velit excepturi praesentium facilis cum provident. A est quasi ut odit iste obcaecati soluta ipsam facilis, corporis. Eaque debitis suscipit dolore dolore quia!</p>
+        <p>Dolor quia praesentium necessitatibus impedit sed. Dolore eveniet placeat harum repellendus assumenda quas corporis? Labore earum illum possimus molestias dolor. Nisi voluptatem velit possimus laboriosam nihil harum accusamus vel sequi?</p>
+      </section>
+
+      <section id="s2">
+        <h2>Dolor recusandae sed</h2>
+        <p>Elit incidunt id dolorem a est corporis quis eum inventore nostrum delectus quae quis excepturi aut exercitationem error quibusdam mollitia! Vel nulla pariatur non officiis labore. Sit voluptatum velit accusamus!</p>
+        <p>Consectetur laboriosam totam facilis repellendus esse eveniet necessitatibus. Excepturi repudiandae officia est ad veniam. Eveniet suscipit itaque natus accusantium velit perferendis. Aspernatur odit similique tempora dolore iure. Dolores facilis ipsam.</p>
+        <p>Amet voluptatem est modi veniam voluptatum. Debitis asperiores odit ea incidunt qui nesciunt dolores delectus nobis sunt iusto eveniet cupiditate aliquid deleniti eius totam omnis, adipisci sequi recusandae maiores voluptas!</p>
+        <p>Adipisicing provident provident harum voluptatibus labore placeat? Aliquid earum voluptate vitae sint consequatur! Neque quasi delectus magnam hic dignissimos alias repudiandae quo debitis harum. Totam quae quisquam provident veritatis fuga?</p>
+      </section>
+
+      <section id="s3">
+        <h2>Amet veniam facere</h2>
+        <p>Dolor impedit doloribus sit quod recusandae modi doloremque. Libero iure expedita nisi explicabo quo doloribus et laboriosam officiis? Eveniet voluptates iure assumenda voluptatibus cumque? Sit ut iste tempora esse harum?</p>
+        <p>Sit dolor at eos optio culpa? Placeat distinctio odio repellendus iste quo officiis assumenda ullam. Ratione possimus beatae minima et repudiandae nisi fugiat omnis asperiores temporibus soluta veniam provident praesentium?</p>
+        <p>Consectetur optio ipsum dolorem mollitia ipsam dolor, ipsa. Veritatis officia dignissimos omnis in quas! Accusamus omnis aliquid rerum dolorum velit assumenda illo! Fuga voluptate necessitatibus repellat rerum vitae. Sed nemo.</p>
+        <p>Elit voluptas officiis neque illum inventore, cum sint quae inventore aspernatur? Quod tenetur quibusdam earum sit modi voluptas nisi distinctio quae at repellendus, voluptas, praesentium unde? Nesciunt dolorum minus amet.</p>
+        <p>Sit porro minus excepturi sapiente veritatis consequuntur nesciunt quod maiores dicta. At aspernatur maxime quos velit vel soluta, nostrum! Sapiente aut cupiditate nemo fugiat atque aperiam deserunt, repellat esse laudantium.</p>
+      </section>
+
+      <section id="s4">
+        <h2>Consectetur asperiores debitis</h2>
+        <p>Dolor nulla facilis necessitatibus sapiente nihil. Excepturi doloremque quos quam officiis a. Asperiores quod ex doloribus ratione dignissimos impedit a! Culpa mollitia dicta aspernatur eum fugiat exercitationem! Recusandae libero et?</p>
+        <p>Consectetur deleniti possimus excepturi veniam sit ratione atque, officia! Dolores voluptatibus illum quam blanditiis ullam suscipit. Consequuntur tempore recusandae vero maiores architecto odit illo incidunt nihil, provident eum reiciendis, non?</p>
+        <p>Sit maiores et fuga distinctio tempore corporis! Corporis unde ullam quaerat at ducimus! Perferendis nam ipsum dicta quo amet at illum aut! Expedita culpa atque iste nobis dolore unde quos!</p>
+        <p>Consectetur architecto corrupti alias unde aliquid ab! Incidunt quas odit blanditiis praesentium nam. Distinctio veritatis tenetur rem vel ea? Deleniti sint dolorum in id eum quibusdam. Enim repudiandae non odit?</p>
+        <p>Lorem modi eius dolor tenetur nostrum. Provident autem ullam voluptate fugit quaerat nesciunt. Deleniti praesentium incidunt nemo optio culpa animi suscipit? Incidunt quasi temporibus minima dolores eveniet. Impedit nemo doloremque.</p>
+        <p>Dolor eius perspiciatis consequuntur assumenda sequi. Vero est illo eius quidem dolorum reiciendis ipsum! Unde alias tenetur consequuntur odio possimus possimus! Deleniti repellat quia sunt fugit ipsam animi harum nostrum?</p>
+      </section>
+    </main>
+
+    <script src="src/js/parallax.js"></script>
+    <script>
+      parallax.bind(document.getElementById('site-header'), 2);
+      parallax.bind(document.getElementById('s2'), 1);
+    </script>
+  </body>
+</html>
