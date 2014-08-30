@@ -64,12 +64,13 @@ var Parallax = (function(window) {
       viewport = window.pageYOffset + window.innerHeight * options.viewport;
 
       offset = viewport - anchor;
-      if (offset < 0) {
+
+      if (element.offsetTop > (window.pageYOffset + window.innerHeight) || (element.offsetTop + element.offsetHeight) < window.pageYOffset) {
+        /* Element is off the screen, so no need to render */
+        continue;
+      } else if (offset < 0) {
         /* Not at the activation point yet */
         y = 0;
-      } else if (window.pageYOffset > element.offsetTop + element.offsetHeight) {
-        /* Element has now scrolled past the top of the screen */
-        continue;
       } else {
         y = offset * (1 - Math.abs(options.scale)) * ((options.scale < 0) ? -1 : 1);
       }
