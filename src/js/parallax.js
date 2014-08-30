@@ -1,4 +1,4 @@
-var Parallax = (function(window, document) {
+var Parallax = (function(window) {
   'use strict';
 
   var watchList = [],
@@ -95,6 +95,6 @@ var Parallax = (function(window, document) {
   return {
     bind: bind
   };
-})(window, document);
+})(window);
 
 window.parallax = Parallax;
