@@ -37,24 +37,24 @@ var Parallax = (function(window, document) {
       viewport: 'top'
     }, options);
 
+    /* Calculate anchor position */
+    switch (options.anchor) {
+      case 'top': options.anchor = 0; break;
+      case 'center': case 'middle': options.anchor = 0.5; break;
+      case 'bottom': options.anchor = 1; break;
+      default: options.anchor = parseFloat(options.anchor);
+    }
+
+    /* Calculate viewport coordinate */
+    switch (options.viewport) {
+      case 'top': options.viewport = 0; break;
+      case 'center': case 'middle': options.viewport = 0.5; break;
+      case 'bottom': options.viewport = 1; break;
+      default: options.viewport = parseFloat(options.viewport);
+    }
+
     if (!elements.length) { elements = [elements]; }
     for (var i = 0, length = elements.length; i < length; i++) {
-      /* Calculate anchor position */
-      switch (options.anchor) {
-        case 'top': options.anchor = 0; break;
-        case 'center': case 'middle': options.anchor = .5; break;
-        case 'bottom': options.anchor = 1; break;
-        default: options.anchor = parseFloat(options.anchor);
-      }
-
-      /* Calculate viewport coordinate */
-      switch (options.viewport) {
-        case 'top': options.viewport = 0; break;
-        case 'center': case 'middle': options.viewport = .5; break;
-        case 'bottom': options.viewport = 1; break;
-        default: options.viewport = parseFloat(options.viewport);
-      }
-
       watchList.push({
         element: elements[i],
         scale: options.scale,
