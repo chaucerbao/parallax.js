@@ -37,21 +37,9 @@ var Parallax = (function(window, document) {
       viewport: 'top'
     }, options);
 
-    /* Calculate anchor position */
-    switch (options.anchor) {
-      case 'top': options.anchor = 0; break;
-      case 'center': case 'middle': options.anchor = 0.5; break;
-      case 'bottom': options.anchor = 1; break;
-      default: options.anchor = parseFloat(options.anchor);
-    }
-
-    /* Calculate viewport coordinate */
-    switch (options.viewport) {
-      case 'top': options.viewport = 0; break;
-      case 'center': case 'middle': options.viewport = 0.5; break;
-      case 'bottom': options.viewport = 1; break;
-      default: options.viewport = parseFloat(options.viewport);
-    }
+    /* Convert anchor/viewport values to float */
+    options.anchor = toFloat(options.anchor);
+    options.viewport = toFloat(options.viewport);
 
     if (!elements.length) { elements = [elements]; }
     for (var i = 0, length = elements.length; i < length; i++) {
@@ -83,11 +71,25 @@ var Parallax = (function(window, document) {
         /* Element has now scrolled past the top of the screen */
         continue;
       } else {
-        y = offset * (1 - options.scale);
+        y = offset * (1 - Math.abs(options.scale)) * ((options.scale < 0) ? -1 : 1);
       }
 
       element.style.backgroundPosition = '0 ' + y + 'px';
     }
+  };
+
+  /* Convert a text value to its float counterpart */
+  var toFloat = function(value) {
+    var number;
+
+    switch (value) {
+      case 'top': number = 0; break;
+      case 'center': case 'middle': number = 0.5; break;
+      case 'bottom': number = 1; break;
+      default: number = parseFloat(value);
+    }
+
+    return number;
   };
 
   return {
