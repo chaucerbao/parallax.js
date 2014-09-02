@@ -47,7 +47,8 @@ var Parallax = (function(window) {
         element: elements[i],
         scale: options.scale,
         anchor: options.anchor,
-        viewport: options.viewport
+        viewport: options.viewport,
+        yInit: yPos(elements[i])
       });
     }
   };
@@ -65,14 +66,15 @@ var Parallax = (function(window) {
 
       position = viewport - anchor;
 
+      /* If the element is off-screen, don't render it */
       if (element.offsetTop > (window.pageYOffset + window.innerHeight) || (element.offsetTop + element.offsetHeight) < window.pageYOffset) {
-        /* Element is off the screen, so no need to render */
         continue;
-      } else if (position < 0) {
-        /* Not at the activation point yet */
-        y = 0;
-      } else {
-        y = position * (1 - Math.abs(params.scale)) * ((params.scale < 0) ? -1 : 1);
+      }
+
+      y = params.yInit;
+      if (position > 0) {
+        /* The element's anchor position is past the viewport's activation point */
+        y += position * (1 - Math.abs(params.scale)) * ((params.scale < 0) ? -1 : 1);
       }
 
       element.style.backgroundPosition = '0 ' + y + 'px';
@@ -92,6 +94,17 @@ var Parallax = (function(window) {
 
     return number;
   };
+
+  /* Return the y-position in 'px' of an element's background-position */
+  var yPos = function(element) {
+    var y = window.getComputedStyle(element).getPropertyValue('background-position').split(' ')[1];
+
+    if (y.indexOf('%') > 0) {
+      y = element.offsetHeight * parseInt(y) / 100;
+    }
+
+    return parseInt(y);
+  }
 
   return {
     bind: bind
