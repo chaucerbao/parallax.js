@@ -54,25 +54,25 @@ var Parallax = (function(window) {
 
   /* Calculate the background position offset for each element in the watch list */
   var render = function() {
-    var element, options, anchor, viewport, offset, y;
+    var element, params, anchor, viewport, position, y;
 
     for (var i = 0, length = watchList.length; i < length; i++) {
-      element = watchList[i].element;
-      options = watchList[i];
+      params = watchList[i];
+      element = params.element;
 
-      anchor = element.offsetTop + element.offsetHeight * options.anchor;
-      viewport = window.pageYOffset + window.innerHeight * options.viewport;
+      anchor = element.offsetTop + element.offsetHeight * params.anchor;
+      viewport = window.pageYOffset + window.innerHeight * params.viewport;
 
-      offset = viewport - anchor;
+      position = viewport - anchor;
 
       if (element.offsetTop > (window.pageYOffset + window.innerHeight) || (element.offsetTop + element.offsetHeight) < window.pageYOffset) {
         /* Element is off the screen, so no need to render */
         continue;
-      } else if (offset < 0) {
+      } else if (position < 0) {
         /* Not at the activation point yet */
         y = 0;
       } else {
-        y = offset * (1 - Math.abs(options.scale)) * ((options.scale < 0) ? -1 : 1);
+        y = position * (1 - Math.abs(params.scale)) * ((params.scale < 0) ? -1 : 1);
       }
 
       element.style.backgroundPosition = '0 ' + y + 'px';
