@@ -21,7 +21,10 @@ var Parallax = (function(window) {
 
   var init = function() {
     if (!isInitialized) {
-      window.addEventListener('scroll', render);
+      (function renderLoop() {
+        window.requestAnimationFrame(renderLoop);
+        render();
+      })();
       isInitialized = true;
     }
   };
@@ -55,8 +58,9 @@ var Parallax = (function(window) {
 
   /* Calculate the background position offset for each element in the watch list */
   var render = function() {
-    var element, params, anchor, viewport, position, y;
+    var element, params, anchor, viewport, position, y, visible = [];
 
+    /* Avoid excessive reflows by reading all properties at once, then batch writing the DOM updates */
     for (var i = 0, length = watchList.length; i < length; i++) {
       params = watchList[i];
       element = params.element;
@@ -64,20 +68,26 @@ var Parallax = (function(window) {
       anchor = element.offsetTop + element.offsetHeight * params.anchor;
       viewport = window.pageYOffset + window.innerHeight * params.viewport;
 
-      position = viewport - anchor;
-
       /* If the element is off-screen, don't render it */
       if (element.offsetTop > (window.pageYOffset + window.innerHeight) || (element.offsetTop + element.offsetHeight) < window.pageYOffset) {
         continue;
       }
 
       y = params.yInit;
+      position = viewport - anchor;
       if (position > 0) {
         /* The element's anchor position is past the viewport's activation point */
         y += position * (1 - Math.abs(params.scale)) * ((params.scale < 0) ? -1 : 1);
       }
 
-      element.style.backgroundPosition = '0 ' + y + 'px';
+      visible.push({
+        element: element,
+        y: y
+      });
+    }
+
+    for (var i = 0, length = visible.length; i < length; i++) {
+      visible[i].element.style.backgroundPosition = '0 ' + visible[i].y + 'px';
     }
   };
 
