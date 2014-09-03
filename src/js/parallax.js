@@ -20,15 +20,15 @@ var Parallax = (function(window) {
   };
 
   var init = function() {
-    window.addEventListener('scroll', render);
+    if (!isInitialized) {
+      window.addEventListener('scroll', render);
+      isInitialized = true;
+    }
   };
 
   /* Add an element to the watch list */
   var bind = function(elements, options) {
-    if (!isInitialized) {
-      init();
-      isInitialized = true;
-    }
+    init();
 
     /* Merge the given options with defaults */
     options = extend({
