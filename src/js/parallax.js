@@ -77,7 +77,7 @@ var Parallax = (function(window) {
       position = viewport - anchor;
       if (position > 0) {
         /* The element's anchor position is past the viewport's activation point */
-        y += position * (1 - Math.abs(params.scale)) * ((params.scale < 0) ? -1 : 1);
+        y += position * Math.abs(1 - params.scale) * (params.scale < 0 ? -1 : 1);
       }
 
       /* Only queue up elements that need to be repositioned */
