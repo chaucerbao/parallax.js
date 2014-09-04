@@ -6,7 +6,7 @@ A parallax library in JavaScript that adjusts an element's background position t
 
 Use CSS to assign an element's background image
 ```css
-#my-element { background: url(images/background.jpg) no-repeat; width: 250px; }
+#my-element { background: url(images/background.jpg) no-repeat; height: 250px; }
 ```
 
 Then, in JavaScript, bind the element to Parallax.js with some options
