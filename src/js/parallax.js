@@ -35,7 +35,7 @@ var Parallax = (function(window) {
 
     /* Merge the given options with defaults */
     options = extend({
-      scale: 1,
+      speed: 1,
       anchor: 'top',
       viewport: 'top'
     }, options);
@@ -48,7 +48,7 @@ var Parallax = (function(window) {
     for (var i = 0, length = elements.length; i < length; i++) {
       watchList.push({
         element: elements[i],
-        scale: options.scale,
+        speed: options.speed,
         anchor: options.anchor,
         viewport: options.viewport,
         yInit: yPos(elements[i])
@@ -77,7 +77,7 @@ var Parallax = (function(window) {
       position = viewport - anchor;
       if (position > 0) {
         /* The element's anchor position is past the viewport's activation point */
-        y += position * Math.abs(1 - params.scale) * (params.scale < 0 ? -1 : 1);
+        y += position * Math.abs(1 - params.speed) * (params.speed < 0 ? -1 : 1);
       }
 
       /* Only queue up elements that need to be repositioned */
