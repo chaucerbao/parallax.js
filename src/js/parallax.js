@@ -58,7 +58,7 @@ var Parallax = (function(window) {
 
   /* Calculate the background position offset for each element in the watch list */
   var render = function() {
-    var element, params, anchor, viewport, position, y, visible = [];
+    var element, params, anchor, viewport, position, y, elementY, visible = [];
 
     /* Avoid excessive reflows by reading all properties at once, then batch writing the DOM updates */
     for (var i = 0, length = watchList.length; i < length; i++) {
@@ -80,10 +80,14 @@ var Parallax = (function(window) {
         y += position * (1 - Math.abs(params.scale)) * ((params.scale < 0) ? -1 : 1);
       }
 
-      visible.push({
-        element: element,
-        y: y
-      });
+      /* Only queue up elements that need to be repositioned */
+      elementY = yPos(element);
+      if (elementY < Math.floor(y) || elementY > Math.ceil(y)) {
+        visible.push({
+          element: element,
+          y: y
+        });
+      }
     }
 
     for (var i = 0, length = visible.length; i < length; i++) {
