@@ -59,9 +59,10 @@ var Parallax = (function(window) {
   /* Calculate the background position offset for each element in the watch list */
   var render = function() {
     var element, params, anchor, viewport, position, y, elementY, visible = [];
+    var i, length;
 
     /* Avoid excessive reflows by reading all properties at once, then batch writing the DOM updates */
-    for (var i = 0, length = watchList.length; i < length; i++) {
+    for (i = 0, length = watchList.length; i < length; i++) {
       params = watchList[i];
       element = params.element;
 
@@ -90,7 +91,7 @@ var Parallax = (function(window) {
       }
     }
 
-    for (var i = 0, length = visible.length; i < length; i++) {
+    for (i = 0, length = visible.length; i < length; i++) {
       visible[i].element.style.backgroundPosition = '0 ' + visible[i].y + 'px';
     }
   };
@@ -118,7 +119,7 @@ var Parallax = (function(window) {
     }
 
     return parseInt(y);
-  }
+  };
 
   return {
     bind: bind
