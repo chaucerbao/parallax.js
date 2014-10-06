@@ -1,23 +1,7 @@
 var Parallax = (function(window) {
   'use strict';
 
-  var watchList = [],
-    isInitialized = false;
-
-  /* Extend an object */
-  var extend = function(out) {
-    out = out || {};
-
-    for (var i = 1, length = arguments.length; i < length; i++) {
-      if (!arguments[i]) { continue; }
-
-      for (var key in arguments[i]) {
-        if (arguments[i].hasOwnProperty(key)) { out[key] = arguments[i][key]; }
-      }
-    }
-
-    return out;
-  };
+  var watchList = [], isInitialized = false;
 
   var init = function() {
     if (!isInitialized) {
@@ -66,11 +50,13 @@ var Parallax = (function(window) {
       params = watchList[i];
       element = params.element;
 
-      anchor = element.offsetTop + element.offsetHeight * params.anchor;
+      /* Calculate the absolute anchor/viewport positions */
+      var elementTop = offset(element).top;
+      anchor = elementTop + element.offsetHeight * params.anchor;
       viewport = window.pageYOffset + window.innerHeight * params.viewport;
 
       /* If the element is off-screen, don't render it */
-      if (element.offsetTop > (window.pageYOffset + window.innerHeight) || (element.offsetTop + element.offsetHeight) < window.pageYOffset) {
+      if (elementTop > (window.pageYOffset + window.innerHeight) || (elementTop + element.offsetHeight) < window.pageYOffset) {
         continue;
       }
 
@@ -91,9 +77,25 @@ var Parallax = (function(window) {
       }
     }
 
+    /* Render the updated positions */
     for (i = 0, length = visible.length; i < length; i++) {
       visible[i].element.style.backgroundPosition = '0 ' + visible[i].y + 'px';
     }
+  };
+
+  /* Extend an object */
+  var extend = function(out) {
+    out = out || {};
+
+    for (var i = 1, length = arguments.length; i < length; i++) {
+      if (!arguments[i]) { continue; }
+
+      for (var key in arguments[i]) {
+        if (arguments[i].hasOwnProperty(key)) { out[key] = arguments[i][key]; }
+      }
+    }
+
+    return out;
   };
 
   /* Convert a text value to its float counterpart */
@@ -115,10 +117,28 @@ var Parallax = (function(window) {
     var y = window.getComputedStyle(element).getPropertyValue('background-position').split(' ')[1];
 
     if (y.indexOf('%') > 0) {
-      y = element.offsetHeight * parseInt(y) / 100;
+      y = element.offsetHeight * parseFloat(y) / 100;
     }
 
-    return parseInt(y);
+    return parseFloat(y);
+  };
+
+  /* Calculate the absolute position of an element */
+  var offset = function(element) {
+    var left = 0, top = 0;
+
+    if (element.offsetParent) {
+      do {
+        left += element.offsetLeft;
+        top += element.offsetTop;
+        element = element.offsetParent;
+      } while (element);
+    }
+
+    return {
+      left: left,
+      top: top
+    };
   };
 
   return {
