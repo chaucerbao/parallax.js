@@ -9,6 +9,7 @@ var Parallax = (function(window) {
         window.requestAnimationFrame(renderLoop);
         render();
       })();
+
       isInitialized = true;
     }
   };
